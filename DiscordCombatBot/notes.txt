@@ -1,8 +1,1 @@
-Client ID: 512303263027036161
-Token: NTEyMzAzMjYzMDI3MDM2MTYx.Ds3r-A.Z9xrnXU9dVk1zrxmu-JQkpl9vfc
-
-https://discordapp.com/api/oauth2/authorize?client_id=512303263027036161&scope=bot&permissions=1
-
-Tota: 500 lines;
-
-Day One: 500 lines;
+NTEyMzAzMjYzMDI3MDM2MTYx.Ds3r-A.Z9xrnXU9dVk1zrxmu-JQkpl9vfc

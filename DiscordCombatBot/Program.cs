@@ -2,6 +2,7 @@
 using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace DiscordCombatBot
     class Program
     {
         private DiscordSocketClient client;
-        private static String token = "NTEyMzAzMjYzMDI3MDM2MTYx.Ds3r-A.Z9xrnXU9dVk1zrxmu-JQkpl9vfc";
+        private static String token = File.ReadAllText(@"../../notes.txt");
         private ZeusCombatSystem combat = new ZeusCombatSystem();
 
         static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
