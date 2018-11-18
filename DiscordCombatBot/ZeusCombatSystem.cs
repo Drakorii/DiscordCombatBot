@@ -193,7 +193,7 @@ namespace DiscordCombatBot
             }
             else
             {
-                if(shop.buyItem(findUser(id), shop.WeaponStock[int.Parse(itemNr)]))
+                if(shop.buyItem(findUser(id), shop.WeaponStock[int.Parse(itemNr)-1]))
                 {
                     return "You just bought: " + shop.WeaponStock[int.Parse(itemNr)].ItemName;
                 }
@@ -230,7 +230,7 @@ namespace DiscordCombatBot
 
             for(int i = 0; i < shop.WeaponStock.Count; i++)
             {
-                s = s + (" Item " + i.ToString() + " : "+ shop.WeaponStock.ElementAt(i).ItemName + " - " + shop.WeaponStock.ElementAt(i).Price);
+                s = s + (" Item " + i.ToString()+1 + " : "+ shop.WeaponStock.ElementAt(i).ItemName + " - " + shop.WeaponStock.ElementAt(i).Price);
             }
 
             return s;

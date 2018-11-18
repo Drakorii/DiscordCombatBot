@@ -77,7 +77,7 @@ namespace DiscordCombatBot
                     await message.Channel.SendMessageAsync(combat.showMoney(message.Author.Id));
 
                 }
-                else if (message.Content.Contains("!zeusShowShop") == true)
+                else if (message.Content.Contains("!zeusShop") == true)
                 {
                     await message.Channel.SendMessageAsync(combat.showShop());
 
@@ -115,6 +115,7 @@ namespace DiscordCombatBot
                     String help2 = "!zeusHelp - Displays this help dialog :)";
                     String help3 = "!zeusRegister [Nickname] [Profession] - You can choose a Nickname and a Profession (Warrior, Archer, Magician)";
                     String help4 = "!zeusInventory - Displays you current inventory";
+                    String help8 = "!zeusShop - Displays the Shop";
                     String help5 = "!zeusShowMoney - Displays your current Account Balance";
                     String help7 = "!zeusShowChar - Displays Information about your Character";
                     String help6 = "!zeusStatus - Displays if Zeus is Activated";
@@ -123,6 +124,7 @@ namespace DiscordCombatBot
                     await message.Channel.SendMessageAsync(help2);
                     await message.Channel.SendMessageAsync(help3);
                     await message.Channel.SendMessageAsync(help4);
+                    await message.Channel.SendMessageAsync(help8);
                     await message.Channel.SendMessageAsync(help5);
                     await message.Channel.SendMessageAsync(help7);
                     await message.Channel.SendMessageAsync(help6);
