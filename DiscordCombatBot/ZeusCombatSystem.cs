@@ -142,7 +142,7 @@ namespace DiscordCombatBot
 
         public void readUserFromFile()
         {
-            userList = (from e in XDocument.Load(@"../../user.xml").Root.Elements("User")
+            userList = (from e in XDocument.Load(@"../../../data/user.xml").Root.Elements("User")
                         select new User
                         {
                             UserID = (string)e.Element("Id"),
@@ -181,7 +181,7 @@ namespace DiscordCombatBot
 
             XDocument doc = new XDocument();
             doc.Add(xml);
-            doc.Save(@"../../user.xml");
+            doc.Save(@"../../../data/user.xml");
         }
 
         public String userBuysItem(ulong id, string itemNr)

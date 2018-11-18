@@ -12,7 +12,7 @@ namespace DiscordCombatBot
     class Program
     {
         private DiscordSocketClient client;
-        private static String token = File.ReadAllText(@"../../notes.txt");
+        private static String token = File.ReadAllText(@"../../../data/token.txt");
         private ZeusCombatSystem combat = new ZeusCombatSystem();
 
         static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
