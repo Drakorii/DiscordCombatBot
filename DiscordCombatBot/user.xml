@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Users>
+  <User>
+    <Id>262655770951155712</Id>
+    <Nickname>Drakori</Nickname>
+    <Profession>warrior</Profession>
+    <Money>10000000</Money>
+  </User>
+  <User>
+    <Id>268353629923180544</Id>
+    <Nickname>PewDiePie</Nickname>
+    <Profession>Archer</Profession>
+    <Money>10000000</Money>
+  </User>
+  <User>
+    <Id>361904534433431552</Id>
+    <Nickname>Seppi</Nickname>
+    <Profession>Mage</Profession>
+    <Money>0</Money>
+  </User>
+</Users>
