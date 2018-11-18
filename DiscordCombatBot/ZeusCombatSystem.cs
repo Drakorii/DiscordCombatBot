@@ -12,11 +12,12 @@ namespace DiscordCombatBot
     class ZeusCombatSystem
     {
         List<Weapon> weapons;
-
+        Shop shop;
         public static List<User> userList = new List<User>();
         public ZeusCombatSystem()
         {
             weapons = new List<Weapon>();
+            shop = new Shop(weapons);
             initItems();
         }
 
@@ -183,7 +184,7 @@ namespace DiscordCombatBot
             doc.Save(@"../../user.xml");
         }
 
-        public String userBuysItem(ulong id)
+        public String userBuysItem(ulong id, string itemNr)
         {
 
             if(!alreadyRegistered(id))
@@ -192,8 +193,14 @@ namespace DiscordCombatBot
             }
             else
             {
-                findUser(id).AddWeapon(weapons.First());
-                return "You just bought: " + weapons.First().ItemName;
+                if(shop.buyItem(findUser(id), shop.WeaponStock[int.Parse(itemNr)]))
+                {
+                    return "You just bought: " + shop.WeaponStock[int.Parse(itemNr)].ItemName;
+                }
+                else
+                {
+                    return "Sorry, you dont have enough Money!";
+                }
             }
         }
 
@@ -217,13 +224,22 @@ namespace DiscordCombatBot
             }
         }
 
+        public String showShop()
+        {
+            String s = "Shop: ";
+
+            for(int i = 0; i < shop.WeaponStock.Count; i++)
+            {
+                s = s + (" Item " + i.ToString() + " : "+ shop.WeaponStock.ElementAt(i).ItemName + " - " + shop.WeaponStock.ElementAt(i).Price);
+            }
+
+            return s;
+        }
+
         public void initItems()
         {
-            
-
-            Weapon adminSword = new Weapon(0, "AdminSword", "A secret Admin Weapon", "warrior", Double.MaxValue);
-
-            weapons.Add(adminSword);
+            Weapon adminSword = new Weapon(0, "AdminSword", "A secret Admin Weapon", "warrior", Double.MaxValue, 0);
+            shop.AddItem(adminSword);
         }
 
         private List<User> UserList { get => userList; set => userList = value; }

@@ -19,8 +19,7 @@ namespace DiscordCombatBot
         public async Task MainAsync()
         {
 
-            
-            
+            //I make change
             client = new DiscordSocketClient(new DiscordSocketConfig
             {
                 LogLevel = LogSeverity.Info
@@ -64,8 +63,8 @@ namespace DiscordCombatBot
                 //Hello
                 else if (message.Content.Contains("!secretAdminWeapon") == true)
                 {
-                    await message.Channel.SendMessageAsync(combat.userBuysItem(message.Author.Id));
-                    await message.DeleteAsync();
+                    //await message.Channel.SendMessageAsync(combat.userBuysItem(message.Author.Id));
+                    //await message.DeleteAsync();
                 }
                 else if (message.Content.Contains("!zeusInventory") == true)
                 {
@@ -75,6 +74,19 @@ namespace DiscordCombatBot
                 else if (message.Content.Contains("!zeusShowMoney") == true)
                 {
                     await message.Channel.SendMessageAsync(combat.showMoney(message.Author.Id));
+
+                }
+                else if (message.Content.Contains("!zeusShowShop") == true)
+                {
+                    await message.Channel.SendMessageAsync(combat.showShop());
+
+                }
+                else if (message.Content.Contains("!zeusBuyItem") == true)
+                {
+                        string s = message.Content.Split(' ')[1];
+
+                        await message.Channel.SendMessageAsync(combat.userBuysItem(message.Author.Id, s));
+                    
 
                 }
                 else if (message.Content.Contains("!godMode ON") == true)
