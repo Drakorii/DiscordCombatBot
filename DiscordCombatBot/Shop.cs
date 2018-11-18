@@ -39,6 +39,11 @@ namespace DiscordCombatBot
             weaponStock.Add(w);
         }
 
+        public void RemoveItem(Weapon w)
+        {
+            weaponStock.Remove(w);
+        }
+
         public void removeItem(Weapon w)
         {
             weaponStock.Remove(w);

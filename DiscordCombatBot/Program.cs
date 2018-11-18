@@ -1,10 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DiscordCombatBot
@@ -12,7 +9,7 @@ namespace DiscordCombatBot
     class Program
     {
         private DiscordSocketClient client;
-        private static String token = File.ReadAllText(@"../../../data/token.txt");
+        private static readonly String token = File.ReadAllText(@"../../../data/token.txt");
         private ZeusCombatSystem combat = new ZeusCombatSystem();
 
         static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
@@ -90,11 +87,6 @@ namespace DiscordCombatBot
                     
 
                 }
-                else if (message.Content.Contains("!godMode ON") == true)
-                {
-                    //await message.Channel.SendMessageAsync(combat.godMode(message.Author.Id));
-
-                }
                 else if (message.Content.Contains("!zeusHero") == true)
                 {
                     String[] args = combat.showHero(message.Author.Id);
@@ -116,8 +108,9 @@ namespace DiscordCombatBot
                     String help3 = "!zeusRegister [Nickname] [Profession] - You can choose a Nickname and a Profession (Warrior, Archer, Magician)";
                     String help4 = "!zeusInventory - Displays you current inventory";
                     String help8 = "!zeusShop - Displays the Shop";
+                    String help9 = "!zeusBuyItem [item Nr in Shop] - Buys the item with the nr from the shop";
                     String help5 = "!zeusShowMoney - Displays your current Account Balance";
-                    String help7 = "!zeusShowChar - Displays Information about your Character";
+                    String help7 = "!zeusHero - Displays Information about your Character";
                     String help6 = "!zeusStatus - Displays if Zeus is Activated";
 
                     await message.Channel.SendMessageAsync(help1);
@@ -125,6 +118,7 @@ namespace DiscordCombatBot
                     await message.Channel.SendMessageAsync(help3);
                     await message.Channel.SendMessageAsync(help4);
                     await message.Channel.SendMessageAsync(help8);
+                    await message.Channel.SendMessageAsync(help9);
                     await message.Channel.SendMessageAsync(help5);
                     await message.Channel.SendMessageAsync(help7);
                     await message.Channel.SendMessageAsync(help6);

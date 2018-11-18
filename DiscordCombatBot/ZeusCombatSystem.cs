@@ -148,7 +148,17 @@ namespace DiscordCombatBot
                             UserID = (string)e.Element("Id"),
                             Nickname = (string)e.Element("Nickname"),
                             Profession = (string)e.Element("Profession"),
-                            Money = (int)e.Element("Money")
+                            Money = (int)e.Element("Money"),
+                            Weapons = (from w in XDocument.Load(@"../../../data/user.xml").Root.Elements("User").Elements("Weapon")
+                                      select new Weapon
+                                      {
+                                          ItemName = (string)w.Element("Name"),
+                                          ItemDesc = (string)w.Element("Description"),
+                                          ItemDmg = (double)w.Element("Damage"),
+                                          ItemID = (int)w.Element("ID"),
+                                          ItemType = (string)w.Element("Type"),
+                                          Price = (int)w.Element("Price")
+                                      }).ToList()
                         }).ToList();
         }
 
@@ -177,7 +187,15 @@ namespace DiscordCombatBot
                                                new XElement("Id", x.UserID),
                                                new XElement("Nickname", x.Nickname),
                                                new XElement("Profession", x.Profession),
-                                               new XElement("Money", x.Money))));
+                                               new XElement("Money", x.Money),
+                                               new XElement("Weapons"), x.Weapons.Select(y => new XElement("Weapon", 
+                                                                                                    new XElement("ID", y.ItemID),
+                                                                                                    new XElement("Name", y.ItemName),
+                                                                                                    new XElement("Description", y.ItemDesc),
+                                                                                                    new XElement("Type", y.ItemType),
+                                                                                                    new XElement("Damage", y.ItemDmg),
+                                                                                                    new XElement("Price", y.Price)
+                                                                                                    )))));
 
             XDocument doc = new XDocument();
             doc.Add(xml);
@@ -186,22 +204,51 @@ namespace DiscordCombatBot
 
         public String userBuysItem(ulong id, string itemNr)
         {
-
+            User user = findUser(id);
+            int nr = int.Parse(itemNr) -1;
             if(!alreadyRegistered(id))
             {
                 return "Please register before you take any actions! Hint: !zeusHelp";
             }
             else
             {
-                if(shop.buyItem(findUser(id), shop.WeaponStock[int.Parse(itemNr)-1]))
-                {
-                    return "You just bought: " + shop.WeaponStock[int.Parse(itemNr)].ItemName;
+                Weapon targetItem = shop.WeaponStock[nr];
+                if (hasUserItem(user, targetItem)) {
+
+                    user.Money += targetItem.Price;
+                    shop.RemoveItem(targetItem);
+                    initItems();
+                    saveUserToFile();
+                    return "You already had that item in your Inventory, so we sold it for you:)";
                 }
                 else
                 {
-                    return "Sorry, you dont have enough Money!";
+                    if (shop.buyItem(findUser(id), shop.WeaponStock[nr]))
+                    {
+                        initItems();
+                        saveUserToFile();
+                        return "You just bought: " + targetItem.ItemName;
+                    }
+                    else
+                    {
+
+                        return "Sorry, you dont have enough Money!";
+                    }
                 }
             }
+        }
+
+        public Boolean hasUserItem(User u, Weapon w)
+        {
+            foreach(Weapon weapon in u.Weapons)
+            {
+                if(weapon.ItemName == w.ItemName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public String showInventory(ulong id)
@@ -230,7 +277,7 @@ namespace DiscordCombatBot
 
             for(int i = 0; i < shop.WeaponStock.Count; i++)
             {
-                s = s + (" Item " + i.ToString()+1 + " : "+ shop.WeaponStock.ElementAt(i).ItemName + " - " + shop.WeaponStock.ElementAt(i).Price);
+                s = s + (" Item " + (i+1).ToString() + " : "+ shop.WeaponStock.ElementAt(i).ItemName + " for " + shop.WeaponStock.ElementAt(i).Price + " Money");
             }
 
             return s;
@@ -239,7 +286,10 @@ namespace DiscordCombatBot
         public void initItems()
         {
             Weapon adminSword = new Weapon(0, "AdminSword", "A secret Admin Weapon", "warrior", Double.MaxValue, 0);
-            shop.AddItem(adminSword);
+
+            Weapon woodenSword = new Weapon(0, "Wooden Sword", "My wood! Made out of.. hmm", "warrior", 1, 5);
+
+            shop.AddItem(woodenSword);
         }
 
         private List<User> UserList { get => userList; set => userList = value; }
