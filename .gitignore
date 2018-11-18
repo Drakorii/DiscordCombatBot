@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 
+#custom Folder
+data/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -194,8 +197,6 @@ ClientBin/
 *.publishsettings
 node_modules/
 orleans.codegen.cs
-notes.txt
-user.xml
 
 # Since there are multiple workflows, uncomment next line to ignore bower_components
 # (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)
