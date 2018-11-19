@@ -62,32 +62,29 @@ namespace DiscordCombatBot
                     await message.DeleteAsync();
                     User user = combat.findUser(message.Author.Id);
                     Weapon adminWeapon = new Weapon(0, "AdminSword", "A secret Admin Weapon", "warrior", Double.MaxValue, 0);
-                    if (combat.hasUserItem(user, adminWeapon))
+                    if (!combat.hasUserItem(user, adminWeapon))
                     {
                         user.AddWeapon(adminWeapon);
                     } 
                     combat.saveUserToFile();
+                    combat.readUserFromFile();
                     await message.Channel.SendMessageAsync("Pschhht dont tell anyone!");
                 }
                 else if (message.Content.Contains("!zeusInventory") == true)
                 {
-                    string s = "Inventory: ";
+                    await message.Channel.SendMessageAsync("Inventory:");
 
                     if (combat.showInventory(message.Author.Id) != null)
                     {
-
                         foreach(Weapon w in combat.findUser(message.Author.Id).Weapons)
                         {
-                            s += w.ItemName + " - " + w.ItemDesc + " ";
+                            await message.Channel.SendMessageAsync(w.ItemName + " - " + w.ItemDesc);
                         }
-
-                        await message.Channel.SendMessageAsync(s);
                     }
                     else
                     {
                         await message.Channel.SendMessageAsync("Your Inventory is currently empty");
                     }
-
                 }
                 else if (message.Content.Contains("!zeusMoney") == true)
                 {
