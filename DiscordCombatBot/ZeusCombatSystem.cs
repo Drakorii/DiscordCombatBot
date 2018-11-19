@@ -265,7 +265,7 @@ namespace DiscordCombatBot
             {
                 foreach(Weapon w in user.Weapons)
                 {
-                    inv += w.ItemName + " - " + w.ItemDesc;
+                    inv += w.ItemName + " - " + w.ItemDesc + "          -         ";
                 }
                 return inv;
             }
@@ -285,7 +285,7 @@ namespace DiscordCombatBot
 
         public void initItems()
         {
-            Weapon adminSword = new Weapon(0, "AdminSword", "A secret Admin Weapon", "warrior", Double.MaxValue, 0);
+            
 
             Weapon woodenSword = new Weapon(0, "Wooden Sword", "My wood! Made out of.. hmm", "warrior", 1, 5);
 

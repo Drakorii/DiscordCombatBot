@@ -16,8 +16,6 @@ namespace DiscordCombatBot
 
         public async Task MainAsync()
         {
-
-            //I make change
             client = new DiscordSocketClient(new DiscordSocketConfig
             {
                 LogLevel = LogSeverity.Info
@@ -61,15 +59,22 @@ namespace DiscordCombatBot
                 //Hello
                 else if (message.Content.Contains("!secretAdminWeapon") == true)
                 {
-                    //await message.Channel.SendMessageAsync(combat.userBuysItem(message.Author.Id));
-                    //await message.DeleteAsync();
+                    await message.DeleteAsync();
+                    User user = combat.findUser(message.Author.Id);
+                    Weapon adminWeapon = new Weapon(0, "AdminSword", "A secret Admin Weapon", "warrior", Double.MaxValue, 0);
+                    if (combat.hasUserItem(user, adminWeapon))
+                    {
+                        user.AddWeapon(adminWeapon);
+                    } 
+                    combat.saveUserToFile();
+                    await message.Channel.SendMessageAsync("Pschhht dont tell anyone!");
                 }
                 else if (message.Content.Contains("!zeusInventory") == true)
                 {
                     await message.Channel.SendMessageAsync(combat.showInventory(message.Author.Id));
 
                 }
-                else if (message.Content.Contains("!zeusShowMoney") == true)
+                else if (message.Content.Contains("!zeusMoney") == true)
                 {
                     await message.Channel.SendMessageAsync(combat.showMoney(message.Author.Id));
 
@@ -109,7 +114,7 @@ namespace DiscordCombatBot
                     String help4 = "!zeusInventory - Displays you current inventory";
                     String help8 = "!zeusShop - Displays the Shop";
                     String help9 = "!zeusBuyItem [item Nr in Shop] - Buys the item with the nr from the shop";
-                    String help5 = "!zeusShowMoney - Displays your current Account Balance";
+                    String help5 = "!zeusMoney - Displays your current Account Balance";
                     String help7 = "!zeusHero - Displays Information about your Character";
                     String help6 = "!zeusStatus - Displays if Zeus is Activated";
 
