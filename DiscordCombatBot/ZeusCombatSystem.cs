@@ -251,7 +251,7 @@ namespace DiscordCombatBot
             return false;
         }
 
-        public String showInventory(ulong id)
+        public List<Weapon> showInventory(ulong id)
         {
             User user = findUser(id);
 
@@ -259,15 +259,11 @@ namespace DiscordCombatBot
 
             if (!user.Weapons.Any())
             {
-                return inv + "is currently Empty!";
+                return null;
             }
             else
             {
-                foreach(Weapon w in user.Weapons)
-                {
-                    inv += w.ItemName + " - " + w.ItemDesc + "          -         ";
-                }
-                return inv;
+                return user.Weapons;
             }
         }
 

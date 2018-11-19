@@ -71,7 +71,22 @@ namespace DiscordCombatBot
                 }
                 else if (message.Content.Contains("!zeusInventory") == true)
                 {
-                    await message.Channel.SendMessageAsync(combat.showInventory(message.Author.Id));
+                    string s = "Inventory: ";
+
+                    if (combat.showInventory(message.Author.Id) != null)
+                    {
+
+                        foreach(Weapon w in combat.findUser(message.Author.Id).Weapons)
+                        {
+                            s += w.ItemName + " - " + w.ItemDesc + " ";
+                        }
+
+                        await message.Channel.SendMessageAsync(s);
+                    }
+                    else
+                    {
+                        await message.Channel.SendMessageAsync("Your Inventory is currently empty");
+                    }
 
                 }
                 else if (message.Content.Contains("!zeusMoney") == true)
