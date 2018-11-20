@@ -101,8 +101,12 @@ namespace DiscordCombatBot
                         string s = message.Content.Split(' ')[1];
 
                         await message.Channel.SendMessageAsync(combat.userBuysItem(message.Author.Id, s));
-                    
 
+
+                }
+                else if (message.Content.Contains("!zeusPlayMini") == true)
+                {
+                    await message.Channel.SendMessageAsync(combat.playMini(message.Author.Id, message.Content));
                 }
                 else if (message.Content.Contains("!zeusHero") == true)
                 {

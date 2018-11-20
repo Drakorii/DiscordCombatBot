@@ -251,6 +251,28 @@ namespace DiscordCombatBot
             return false;
         }
 
+        public String playMini(ulong id, string s)
+        {
+            String[] arr = s.Split(' ');
+
+            try
+            {
+                string thingy = arr[1];
+                if (didHeWin(thingy))
+                {
+
+                }
+            }catch(Exception e)
+            {
+                return "Please use the command as Following: !zeusPlayMini [Schere, Stein, Papier]";
+            }
+        }
+
+        public Boolean didHeWin(string s)
+        {
+            
+        }
+
         public List<Weapon> showInventory(ulong id)
         {
             User user = findUser(id);
